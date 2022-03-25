@@ -11,12 +11,17 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->get('/', function () use ($router) {
-    echo '<>';
-});
+
+$router->get('/test', 'EquipmentController@test');
 
 $router->group(['prefix'=>'api'], function () use ($router){
-    $router->get('/', function () use ($router) {
-        echo '<>';
-    });
+    $router->get('/equipment', 'EquipmentController@getEquipment');
+    $router->post('/equipment', 'EquipmentController@createEquipment');
+    $router->get('/equipment/{id}', 'EquipmentController@getEquipmentById');
+    //было PUT и DELETE соответственно, но перестало работать при переходе на рабочий компьютер. Не совсем понимаю, в чем проблема
+    $router->post('/equipment/edit/', 'EquipmentController@editEquipment');
+    $router->post('/equipment/delete/', 'EquipmentController@deleteEquipment');
+
+    $router->get('/equipment/types','EquipmentController@getEquipmentTypes');
+    $router->post('/equipment/types', 'EquipmentController@createEquipmentTypes');
 });
